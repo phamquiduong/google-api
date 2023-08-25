@@ -10,7 +10,9 @@ from core.settings import settings
 users_route = APIRouter(prefix='/users', tags=['Users'])
 
 
-@users_route.get('', response_model=list[UserOutSchema])
+@users_route.get('',
+                 response_model_exclude_none=True,
+                 response_model=list[UserOutSchema])
 def get_all_users(
     page: int | None = Query(None),
     skip: int = Query(0, gt=-1),
@@ -22,7 +24,9 @@ def get_all_users(
     return UserHelper(session).get_users(skip=skip, limit=limit)
 
 
-@users_route.get('/{user_id}', response_model=UserOutSchema)
+@users_route.get('/{user_id}',
+                 response_model_exclude_none=True,
+                 response_model=UserOutSchema)
 def get_user(
     user_id: int = Path(..., gt=0),
     session: Session = Depends(get_session)

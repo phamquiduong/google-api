@@ -25,6 +25,7 @@ class ErrorCode(Enum):
     AUTH_4012 = 'User is not found', status.HTTP_401_UNAUTHORIZED
     AUTH_4013 = 'Password is incorrect', status.HTTP_401_UNAUTHORIZED
     AUTH_4014 = 'Inactive user', status.HTTP_401_UNAUTHORIZED
+    AUTH_4015 = 'Password expired! Please change or reset password', status.HTTP_401_UNAUTHORIZED
     AUTH_4091 = 'User already exist', status.HTTP_409_CONFLICT
 
     def get_response(self) -> tuple[ErrorSchema, int]:

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.responses import JSONResponse
 
-from auth.routes import auth_route, user_route, users_route
+from auth.routes import auth_route, google_auth_route, user_route, users_route
 from core.error import ErrorCode, FastAPIException
 from core.helper.database_helper import db_helper
 from core.schemas.error_schema import ErrorField, ErrorSchema
@@ -19,6 +19,7 @@ db_helper.create_all()
 app.include_router(auth_route)
 app.include_router(user_route)
 app.include_router(users_route)
+app.include_router(google_auth_route)
 
 
 # App custom error handlers

@@ -10,7 +10,9 @@ from core.dependencies.db_depend import get_session
 user_route = APIRouter(prefix='/user', tags=['User'])
 
 
-@user_route.get('', response_model=UserOutSchema)
+@user_route.get('',
+                response_model_exclude_none=True,
+                response_model=UserOutSchema)
 def get_user(
     current_user: UserModel = Depends(get_current_user),
 ):
