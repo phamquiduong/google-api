@@ -1,0 +1,16 @@
+# Server
+uvicorn[standard]
+
+# FastAPI
+fastapi
+python-multipart
+
+# SQL support
+sqlalchemy
+
+# Email Validation
+pydantic[email]
+
+# Password support
+pyjwt
+passlib[bcrypt]

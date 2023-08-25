@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+
+# Environment
+.env
+log/
+.venv/
+
+# Docker
+docker/nginx/config/nginx.conf
+
+# Database
+docker/database/db.sqlite3
