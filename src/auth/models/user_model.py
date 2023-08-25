@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -14,6 +16,7 @@ class UserModel(Base):
     is_active: Mapped[bool] = mapped_column(default=True)
 
     # Optional fields
+    password_exp: Mapped[datetime] = mapped_column(nullable=True)
     address: Mapped[str] = mapped_column(String(255), nullable=True)
     full_name: Mapped[str] = mapped_column(String(255), nullable=True)
     phone_number: Mapped[str] = mapped_column(String(15), nullable=True)

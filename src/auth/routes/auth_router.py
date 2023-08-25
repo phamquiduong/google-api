@@ -5,10 +5,8 @@ from sqlalchemy.orm import Session
 from auth.helper.auth_helper import AuthHelper
 from auth.helper.token_helper import AccessTokenHelper, RefreshTokenHelper
 from auth.helper.user_helper import UserHelper
-from auth.schemas.token_schema import (AuthTokenSchema,
-                                       OAuth2PasswordBearerTokenSchema)
-from auth.schemas.user_schema import (UserInSchema, UserLoginSchema,
-                                      UserOutSchema)
+from auth.schemas.token_schema import AuthTokenSchema, OAuth2PasswordBearerTokenSchema
+from auth.schemas.user_schema import UserInSchema, UserLoginSchema, UserOutSchema
 from core.dependencies.db_depend import get_session
 from core.schemas.error_schema import ErrorSchema, FieldErrorSchema
 
@@ -28,6 +26,7 @@ def oauth2_token(
 @auth_route.post('/register',
                  status_code=status.HTTP_201_CREATED,
                  response_model=UserOutSchema,
+                 response_model_exclude_none=True,
                  responses={
                      422: {'model': FieldErrorSchema},
                      500: {'model': ErrorSchema}})
@@ -40,6 +39,7 @@ def user_register(
 
 
 @auth_route.post('/login', response_model=AuthTokenSchema,
+                 response_model_exclude_none=True,
                  responses={
                      422: {'model': FieldErrorSchema},
                      500: {'model': ErrorSchema}})
@@ -55,6 +55,7 @@ def user_login(
 
 
 @auth_route.post('/refresh', response_model=AuthTokenSchema,
+                 response_model_exclude_none=True,
                  responses={
                      422: {'model': FieldErrorSchema},
                      500: {'model': ErrorSchema}})

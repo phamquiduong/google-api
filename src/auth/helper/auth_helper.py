@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy.orm import Session
 
 from auth.helper.password_helper import PasswordHelper
@@ -15,6 +17,7 @@ class AuthHelper:
         user = UserHelper(session=self.session).get_user(email=email)
 
         user = self.__check_found(user)
+        self.__check_password_exp(user)
         self.__check_password(user=user, password=password)
         self.__check_active(user)
 
@@ -25,6 +28,7 @@ class AuthHelper:
         user = UserHelper(self.session).get_user(user_id=user_id)
 
         user = self.__check_found(user)
+        self.__check_password_exp(user)
         self.__check_active(user)
 
         return user
@@ -41,3 +45,7 @@ class AuthHelper:
     def __check_active(self, user: UserModel):
         if not user.is_active:
             raise FastAPIException(ErrorCode.AUTH_4014)
+
+    def __check_password_exp(self, user: UserModel):
+        if user.password_exp is not None and user.password_exp < datetime.now():
+            raise FastAPIException(ErrorCode.AUTH_4015)
